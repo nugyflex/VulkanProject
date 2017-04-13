@@ -681,7 +681,7 @@ private:
 		///////////
 		//VkDevice* test;
 		//test = device.replace();
-		*blocks.blocksDevice = device;
+		blocks.blocksDevice = device;
 	}
 	bool drawBoxes = false;
 	void drawBlocks() {

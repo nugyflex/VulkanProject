@@ -9,6 +9,9 @@ c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(490): warning C4
 c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(506): warning C4018: '<': signed/unsigned mismatch
 c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(511): warning C4018: '<': signed/unsigned mismatch
 c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(2003): warning C4305: 'initializing': truncation from 'double' to 'float'
+c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(684): error C3867: 'VDeleter<VkDevice>::replace': non-standard syntax; use '&' to create a pointer to member
+c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(684): error C2440: '=': cannot convert from 'VkDevice *(__thiscall VDeleter<VkDevice>::* )(void)' to 'VDeleter<VkDevice> *'
+  c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(684): note: There is no context in which this conversion is possible
 c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(691): warning C4018: '<': signed/unsigned mismatch
 c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(704): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
 c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(709): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
@@ -51,5 +54,3 @@ c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(2134): warning C
 c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(2137): warning C4305: '=': truncation from 'double' to 'float'
 c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(2144): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
 c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(2155): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-  VulkanTest2.vcxproj -> C:\Users\jack\Documents\GitHub\VulkanTest2\Debug\VulkanTest2.exe
-  VulkanTest2.vcxproj -> C:\Users\jack\Documents\GitHub\VulkanTest2\Debug\VulkanTest2.pdb (Partial PDB)
