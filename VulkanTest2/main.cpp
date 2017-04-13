@@ -128,7 +128,7 @@ void DestroyDebugReportCallbackEXT(VkInstance instance, VkDebugReportCallbackEXT
 	}
 }
 
-//wrapper class to handle resource management, because there is very little automatic cleanup in cvulkan, this class automatically cleans up vulkan objects when they go out of scope (applicaiton closed, etc), using RAII
+//wrapper class to handle resource management, because there is very little automatic cleanup in vulkan, this class automatically cleans up vulkan objects when they go out of scope (applicaiton closed, etc), using RAII
 template <typename T>
 class VDeleter {
 public:
@@ -417,19 +417,26 @@ struct primitive {
 	std::string name;
 };
 
-enum blockType { wire, inverter, andGate };
+enum blockType { wire, inverter, andGate, orGate, xorGate };
 enum blockDirection { positiveX, negativeX, positiveY, negativeY, positiveZ, negativeZ };
-struct Block { Block(int x, int y, int z, blockType _type, blockDirection _direction) { position = glm::vec3(x, y, z); type = _type; direction = _direction; } glm::vec3 position; blockType type; blockDirection direction; };
+struct Block { Block(int x, int y, int z, blockType _type, blockDirection _direction, VDeleter<VkDevice>* _blockDevice) { position = glm::vec3(x, y, z); type = _type; direction = _direction; blockDevice = _blockDevice; } glm::vec3 position; blockType type; blockDirection direction; VDeleter<VkDevice>* blockDevice;
+VDeleter<VkBuffer> vertexBuffer{ *blockDevice, vkDestroyBuffer };
+VDeleter<VkDeviceMemory> vertexBufferMemory{ *blockDevice, vkFreeMemory };
+VDeleter<VkBuffer> indexBuffer{ *blockDevice, vkDestroyBuffer };
+VDeleter<VkDeviceMemory> indexBufferMemory{ *blockDevice, vkFreeMemory };
+};
 
 class Blocks {
 public:
-	Blocks(){}
+	Blocks() {}
+
 	void correctCameraWithBlocks(glm::vec3* cameraMin, glm::vec3* cameraMax, glm::vec3* cameraVel) {
 		glm::vec3 test = glm::vec3(cameraMin->x, cameraMin->y, cameraMin->y);
 		for (int i = 0; i < blocks.size(); i++) {
 			correctBoundingBox(cameraMin, cameraMax, &blocks[i].position, &glm::vec3(blocks[i].position.x+1, blocks[i].position.y + 1, blocks[i].position.z + 1), cameraVel);
 		}
 	}
+	VDeleter<VkDevice>* blocksDevice;
 	void init(std::vector<Vertex>* _vertices, std::vector<uint32_t>* _indices) {
 		vertices = _vertices;
 		indices = _indices;
@@ -452,12 +459,12 @@ public:
 
 	void addBlock(int x, int y, int z, blockType type) {
 		if (!doesBlockExist(x, y, z)) {
-			blocks.push_back(Block(x, y, z, type, positiveY));
+			blocks.push_back(Block(x, y, z, type, positiveY, blocksDevice));
 		}
 	}
 	void addBlock(int x, int y, int z, blockType type, blockDirection direction) {
 		if (!doesBlockExist(x, y, z)) {
-			blocks.push_back(Block(x, y, z, type, direction));
+			blocks.push_back(Block(x, y, z, type, direction, blocksDevice));
 		}
 	}
 	int getVectorSize() {
@@ -506,12 +513,12 @@ void addVectorsWithOffset(std::vector<Vertex>* originalVertices, std::vector<uin
 	}
 }
 
-class HelloTriangleApplication {
+class WorkSpace {
 public:
 	void run() {
 		initWindow();
 		blocks.init(&vertices, &indices);
-		drawBlocks();
+		//drawBlocks();
 		initVulkan();
 
 		mainLoop();
@@ -574,12 +581,13 @@ private:
 	VDeleter<VkDeviceMemory> depthImageMemory{ device, vkFreeMemory };
 
 	VDeleter<VkImageView> depthImageView{ device, vkDestroyImageView };
-
 	Blocks blocks;
+	
 
 	std::vector<primitive> primitives;
 
 	void initWindow() {
+		
 		glfwInit();
 
 		glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
@@ -592,13 +600,13 @@ private:
 		glfwSetInputMode(window, GLFW_CURSOR, GLFW_CURSOR_HIDDEN);
 
 		glfwSetWindowUserPointer(window, this);
-		glfwSetWindowSizeCallback(window, HelloTriangleApplication::onWindowResized);
+		glfwSetWindowSizeCallback(window, WorkSpace::onWindowResized);
 	}
 
 	static void onWindowResized(GLFWwindow* window, int width, int height) {
 		if (width == 0 || height == 0) return;
 
-		HelloTriangleApplication* app = reinterpret_cast<HelloTriangleApplication*>(glfwGetWindowUserPointer(window));
+		WorkSpace* app = reinterpret_cast<WorkSpace*>(glfwGetWindowUserPointer(window));
 		app->recreateSwapChain();
 	}
 	int x = 0;
@@ -611,6 +619,7 @@ private:
 
 	//initialises vulkan
 	void initVulkan() {
+		
 		createInstance();
 		setupDebugCallback();
 		createSurface();
@@ -627,10 +636,15 @@ private:
 		createTextureImage();
 		createTextureImageView();
 		createTextureSampler();
-		loadModel(&verticesInverterModel, &indicesInverterModel, "models/xyzOrigin.obj");
-		loadPrimitive("wire", "models/wire2.obj");
-		loadPrimitive("wire_center", "models/wire_center.obj");
-		loadPrimitive("inverter", "models/inverter.obj");
+		
+		loadModel(&verticesInverterModel, &indicesInverterModel, "models/xyzOrigin.obj", glm::vec3(0.1, 0.9, 0.1));
+		loadPrimitive("andGate", "models/AndGate.obj", glm::vec3(0.5, 0.5, 0.9));
+		loadPrimitive("xorGate", "models/XorGate.obj", glm::vec3(0.5, 0.5, 0.9));
+		loadPrimitive("orGate", "models/OrGate.obj", glm::vec3(0.5, 0.5, 0.9));
+		loadPrimitive("wire", "models/wire2.obj", glm::vec3(0.9, 0.1, 0.1));
+		loadPrimitive("wire_center", "models/wire_center.obj", glm::vec3(0.7, 0.1, 0.1));
+		loadPrimitive("inverter", "models/inverter.obj", glm::vec3(0.1, 0.1, 0.9));
+
 		Vertex temp = {};
 		temp.texCoord = { 0, 0 };
 		temp.pos = { 1, 1, 1 };
@@ -650,18 +664,33 @@ private:
 		//for (int i = 0; i < 500; i++) {
 			//addVectors(&vertices, &indices, &verticesInverterModel, &indicesInverterModel);
 		//}
-		createVertexBuffer();
-		createIndexBuffer();
+
+		createVertexBuffer(vertices, vertexBuffer, vertexBufferMemory);
+		createIndexBuffer(indices, indexBuffer, indexBufferMemory);
 		createUniformBuffer();
 		createDescriptorPool();
 		createDescriptorSet();
 		createCommandBuffers();
 		createSemaphores();
+
+
+
+
+
+		////////
+		///////////
+		//VkDevice* test;
+		//test = device.replace();
+		*blocks.blocksDevice = device;
 	}
 	bool drawBoxes = false;
 	void drawBlocks() {
 		glm::vec3 color;
+		std::vector<Vertex> tempVertices;
+		std::vector<uint32_t> tempIndices;
 		for (int i = 0; i < blocks.blocks.size(); i++) {
+			tempVertices.clear();
+			tempIndices.clear();
 			bool x = false;
 			bool y = false;
 			bool z = false;
@@ -673,62 +702,132 @@ private:
 
 				//bottom Y front
 				if (blocks.doesBlockExist(blocks.blocks[i].position.x, blocks.blocks[i].position.y - 1, blocks.blocks[i].position.z)) {
-					addPrimitive("wire", blocks.blocks[i].position, NY);
+					addPrimitive("wire", blocks.blocks[i].position, NY, &tempVertices, &tempIndices);
 					y = true;
 				}
 				//top Y back
 				if (blocks.doesBlockExist(blocks.blocks[i].position.x, blocks.blocks[i].position.y + 1, blocks.blocks[i].position.z)) {
-					addPrimitive("wire", blocks.blocks[i].position, PY);
+					addPrimitive("wire", blocks.blocks[i].position, PY, &tempVertices, &tempIndices);
 					y = true;
 				}
 				//Z front
 				if (blocks.doesBlockExist(blocks.blocks[i].position.x, blocks.blocks[i].position.y, blocks.blocks[i].position.z - 1)) {
-					addPrimitive("wire", blocks.blocks[i].position, NZ);
+					addPrimitive("wire", blocks.blocks[i].position, NZ, &tempVertices, &tempIndices);
 					z = true;
 				}
 				//Z back
 				if (blocks.doesBlockExist(blocks.blocks[i].position.x, blocks.blocks[i].position.y, blocks.blocks[i].position.z + 1)) {
-					addPrimitive("wire", blocks.blocks[i].position, PZ);
+					addPrimitive("wire", blocks.blocks[i].position, PZ, &tempVertices, &tempIndices);
 					z = true;
 				}
 				//X front
 				if (blocks.doesBlockExist(blocks.blocks[i].position.x - 1, blocks.blocks[i].position.y, blocks.blocks[i].position.z)) {
-					addPrimitive("wire", blocks.blocks[i].position, NX);
+					addPrimitive("wire", blocks.blocks[i].position, NX, &tempVertices, &tempIndices);
 					x = true;
 				}
 				//X back
 				if (blocks.doesBlockExist(blocks.blocks[i].position.x + 1, blocks.blocks[i].position.y, blocks.blocks[i].position.z)) {
-					addPrimitive("wire", blocks.blocks[i].position, PX);
+					addPrimitive("wire", blocks.blocks[i].position, PX, &tempVertices, &tempIndices);
 					x = true;
 				}
 				if ( !x && !y && !z) {
-					addPrimitive("wire_center", blocks.blocks[i].position);
+					addPrimitive("wire_center", blocks.blocks[i].position, &tempVertices, &tempIndices);
 				}
 				//addPrimitive("wire", blocks.blocks[i].position);
 				break;
 			case inverter:
 				switch (blocks.blocks[i].direction) {
 				case positiveX:
-					addPrimitive("inverter", blocks.blocks[i].position, NX);
+					addPrimitive("inverter", blocks.blocks[i].position, NX, &tempVertices, &tempIndices);
 					break;
 				case negativeX:
-					addPrimitive("inverter", blocks.blocks[i].position, PX);
+					addPrimitive("inverter", blocks.blocks[i].position, PX, &tempVertices, &tempIndices);
 					break;
 				case positiveY:
-					addPrimitive("inverter", blocks.blocks[i].position, NY);
+					addPrimitive("inverter", blocks.blocks[i].position, NY, &tempVertices, &tempIndices);
 					break;
 				case negativeY:
-					addPrimitive("inverter", blocks.blocks[i].position, PY);
+					addPrimitive("inverter", blocks.blocks[i].position, PY, &tempVertices, &tempIndices);
 					break;
 				case positiveZ:
-					addPrimitive("inverter", blocks.blocks[i].position, NZ);
+					addPrimitive("inverter", blocks.blocks[i].position, NZ, &tempVertices, &tempIndices);
 					break;
 				case negativeZ:
-					addPrimitive("inverter", blocks.blocks[i].position, PZ);
+					addPrimitive("inverter", blocks.blocks[i].position, PZ, &tempVertices, &tempIndices);
 					break;
 
 				}
-					
+				break;
+			case andGate:
+				switch (blocks.blocks[i].direction) {
+				case positiveX:
+					addPrimitive("andGate", blocks.blocks[i].position, NX, &tempVertices, &tempIndices);
+					break;
+				case negativeX:
+					addPrimitive("andGate", blocks.blocks[i].position, PX, &tempVertices, &tempIndices);
+					break;
+				case positiveY:
+					addPrimitive("andGate", blocks.blocks[i].position, NY, &tempVertices, &tempIndices);
+					break;
+				case negativeY:
+					addPrimitive("andGate", blocks.blocks[i].position, PY, &tempVertices, &tempIndices);
+					break;
+				case positiveZ:
+					addPrimitive("andGate", blocks.blocks[i].position, NZ, &tempVertices, &tempIndices);
+					break;
+				case negativeZ:
+					addPrimitive("andGate", blocks.blocks[i].position, PZ, &tempVertices, &tempIndices);
+					break;
+
+				}
+				color = glm::vec3(0, 0, 0.8);
+				break;
+			case orGate:
+				switch (blocks.blocks[i].direction) {
+				case positiveX:
+					addPrimitive("orGate", blocks.blocks[i].position, NX, &tempVertices, &tempIndices);
+					break;
+				case negativeX:
+					addPrimitive("orGate", blocks.blocks[i].position, PX, &tempVertices, &tempIndices);
+					break;
+				case positiveY:
+					addPrimitive("orGate", blocks.blocks[i].position, NY, &tempVertices, &tempIndices);
+					break;
+				case negativeY:
+					addPrimitive("orGate", blocks.blocks[i].position, PY, &tempVertices, &tempIndices);
+					break;
+				case positiveZ:
+					addPrimitive("orGate", blocks.blocks[i].position, NZ, &tempVertices, &tempIndices);
+					break;
+				case negativeZ:
+					addPrimitive("orGate", blocks.blocks[i].position, PZ, &tempVertices, &tempIndices);
+					break;
+
+				}
+				color = glm::vec3(0, 0, 0.8);
+				break;
+			case xorGate:
+				switch (blocks.blocks[i].direction) {
+				case positiveX:
+					addPrimitive("xorGate", blocks.blocks[i].position, NX, &tempVertices, &tempIndices);
+					break;
+				case negativeX:
+					addPrimitive("xorGate", blocks.blocks[i].position, PX, &tempVertices, &tempIndices);
+					break;
+				case positiveY:
+					addPrimitive("xorGate", blocks.blocks[i].position, NY, &tempVertices, &tempIndices);
+					break;
+				case negativeY:
+					addPrimitive("xorGate", blocks.blocks[i].position, PY, &tempVertices, &tempIndices);
+					break;
+				case positiveZ:
+					addPrimitive("xorGate", blocks.blocks[i].position, NZ, &tempVertices, &tempIndices);
+					break;
+				case negativeZ:
+					addPrimitive("xorGate", blocks.blocks[i].position, PZ, &tempVertices, &tempIndices);
+					break;
+
+				}
 				color = glm::vec3(0, 0, 0.8);
 				break;
 			}
@@ -740,7 +839,7 @@ private:
 			//DO THIS WITH 8 VERTICES
 			//HAVE IFS FOR ADDING INDICES
 
-			if (drawBoxes) {
+			/*if (drawBoxes) {
 
 				//ADDING VERTICES:
 				Vertex temp = {};
@@ -792,7 +891,9 @@ private:
 				if (!blocks.doesBlockExist(blocks.blocks[i].position.x + 1, blocks.blocks[i].position.y, blocks.blocks[i].position.z)) {
 					addFace(vertices.size() - 3, vertices.size() - 2, vertices.size() - 6, vertices.size() - 7);
 				}
-			}
+			}*/
+			createVertexBuffer(tempVertices, blocks.blocks[i].vertexBuffer, blocks.blocks[i].vertexBufferMemory);
+			createIndexBuffer(tempIndices, blocks.blocks[i].indexBuffer, blocks.blocks[i].indexBufferMemory);
 		}
 	}
 
@@ -817,7 +918,7 @@ private:
 		}
 	}
 	enum orientation {PX, NX, PY, NY, PZ, NZ};
-	void addPrimitive(std::string name, glm::vec3 offset, orientation _orientation) {
+	void addPrimitive(std::string name, glm::vec3 offset, orientation _orientation, std::vector<Vertex>* _vertices, std::vector<uint32_t>* _indices) {
 		
 		
 
@@ -844,21 +945,21 @@ private:
 				vector = &primitives[i].verticesNZ;
 				break;
 			}
-				addVectorsWithOffset(&vertices, &indices, vector, &primitives[i].indices, offset);
+				addVectorsWithOffset(_vertices, _indices, vector, &primitives[i].indices, offset);
 			}
 		}
 	}
-	void addPrimitive(std::string name, glm::vec3 offset) {
+	void addPrimitive(std::string name, glm::vec3 offset, std::vector<Vertex>* _vertices, std::vector<uint32_t>* _indices) {
 		for (int i = 0; i < primitives.size(); i++) {
 			if (primitives[i].name == name) {
-				addVectorsWithOffset(&vertices, &indices, &primitives[i].verticesPX, &primitives[i].indices, offset);
+				addVectorsWithOffset(_vertices, _indices, &primitives[i].verticesPX, &primitives[i].indices, offset);
 			}
 		}
 	}
 
-	 void loadPrimitive(std::string name, std::string path) {
+	 void loadPrimitive(std::string name, std::string path, glm::vec3 colour) {
 		primitive temp;
-		loadModel(&temp.verticesPX, &temp.indices, path);
+		loadModel(&temp.verticesPX, &temp.indices, path, colour);
 		temp.name = name;
 		temp = rotatePrimitive(temp);
 		primitives.push_back(temp);
@@ -903,7 +1004,7 @@ private:
 		 }
 		 return _primitive;
 	}
-	void loadModel(std::vector<Vertex>* _vertices, std::vector<uint32_t>* _indices, std::string path) {
+	void loadModel(std::vector<Vertex>* _vertices, std::vector<uint32_t>* _indices, std::string path, glm::vec3 colour) {
 		tinyobj::attrib_t attrib;
 		std::vector<tinyobj::shape_t> shapes;
 		std::vector<tinyobj::material_t> materials;
@@ -927,7 +1028,7 @@ private:
 
 				vertex.texCoord = {0,0};// {attrib.texcoords[2 * index.texcoord_index + 0],1.0f - attrib.texcoords[2 * index.texcoord_index + 1]};
 
-				vertex.color = { ((double)rand() / (RAND_MAX)) / 4 + 0.75, 0, ((double)rand() / (RAND_MAX))/4 + 0.75 };
+				vertex.color = { colour.r -0.2 + 0.4*((double)rand() / (RAND_MAX)), colour.g - 0.2 + 0.4*((double)rand() / (RAND_MAX)), colour.b - 0.2 + 0.4*((double)rand() / (RAND_MAX)) };
 
 				if (uniqueVertices.count(vertex) == 0) {
 					uniqueVertices[vertex] = _vertices->size();
@@ -1320,8 +1421,8 @@ private:
 	}
 
 	//creating the index buffer
-	void createIndexBuffer() {
-		VkDeviceSize bufferSize = sizeof(indices[0]) * indices.size();
+	void createIndexBuffer(std::vector<uint32_t> _indices, VDeleter<VkBuffer>& _indexBuffer, VDeleter<VkDeviceMemory>& _indexBufferMemory) {
+		VkDeviceSize bufferSize = sizeof(_indices[0]) * _indices.size();
 
 		VDeleter<VkBuffer> stagingBuffer{ device, vkDestroyBuffer };
 		VDeleter<VkDeviceMemory> stagingBufferMemory{ device, vkFreeMemory };
@@ -1329,12 +1430,12 @@ private:
 
 		void* data;
 		vkMapMemory(device, stagingBufferMemory, 0, bufferSize, 0, &data);
-		memcpy(data, indices.data(), (size_t)bufferSize);
+		memcpy(data, _indices.data(), (size_t)bufferSize);
 		vkUnmapMemory(device, stagingBufferMemory);
 
-		createBuffer(bufferSize, VK_BUFFER_USAGE_TRANSFER_DST_BIT | VK_BUFFER_USAGE_INDEX_BUFFER_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, indexBuffer, indexBufferMemory);
+		createBuffer(bufferSize, VK_BUFFER_USAGE_TRANSFER_DST_BIT | VK_BUFFER_USAGE_INDEX_BUFFER_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, _indexBuffer, _indexBufferMemory);
 
-		copyBuffer(stagingBuffer, indexBuffer, bufferSize);
+		copyBuffer(stagingBuffer, _indexBuffer, bufferSize);
 	}
 	void createBuffer(VkDeviceSize size, VkBufferUsageFlags usage, VkMemoryPropertyFlags properties, VDeleter<VkBuffer>& buffer, VDeleter<VkDeviceMemory>& bufferMemory) {
 		VkBufferCreateInfo bufferInfo = {};
@@ -1362,8 +1463,8 @@ private:
 		vkBindBufferMemory(device, buffer, bufferMemory, 0);
 	}
 
-	void createVertexBuffer() {
-		VkDeviceSize bufferSize = sizeof(vertices[0]) * vertices.size();
+	void createVertexBuffer(std::vector<Vertex> _vertices, VDeleter<VkBuffer>& _vertexBuffer, VDeleter<VkDeviceMemory>& _vertexBufferMemory) {
+		VkDeviceSize bufferSize = sizeof(_vertices[0]) * _vertices.size();
 
 		VDeleter<VkBuffer> stagingBuffer{ device, vkDestroyBuffer };
 		VDeleter<VkDeviceMemory> stagingBufferMemory{ device, vkFreeMemory };
@@ -1371,12 +1472,12 @@ private:
 
 		void* data;
 		vkMapMemory(device, stagingBufferMemory, 0, bufferSize, 0, &data);
-		memcpy(data, vertices.data(), (size_t)bufferSize);
+		memcpy(data, _vertices.data(), (size_t)bufferSize);
 		vkUnmapMemory(device, stagingBufferMemory);
 
-		createBuffer(bufferSize, VK_BUFFER_USAGE_TRANSFER_DST_BIT | VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, vertexBuffer, vertexBufferMemory);
+		createBuffer(bufferSize, VK_BUFFER_USAGE_TRANSFER_DST_BIT | VK_BUFFER_USAGE_VERTEX_BUFFER_BIT, VK_MEMORY_PROPERTY_DEVICE_LOCAL_BIT, _vertexBuffer, _vertexBufferMemory);
 
-		copyBuffer(stagingBuffer, vertexBuffer, bufferSize);
+		copyBuffer(stagingBuffer, _vertexBuffer, bufferSize);
 	}
 
 	void copyBuffer(VkBuffer srcBuffer, VkBuffer dstBuffer, VkDeviceSize size) {
@@ -1492,6 +1593,7 @@ private:
 
 			vkCmdBindPipeline(commandBuffers[i], VK_PIPELINE_BIND_POINT_GRAPHICS, graphicsPipeline);
 
+			//ADD MORE VERTEX BUFFERS HERE
 			VkBuffer vertexBuffers[] = { vertexBuffer };
 			VkDeviceSize offsets[] = { 0 };
 			vkCmdBindVertexBuffers(commandBuffers[i], 0, 1, vertexBuffers, offsets);
@@ -1924,6 +2026,15 @@ private:
 			else if (keys.n2) {
 				blockSelected = inverter;
 			}
+			else if (keys.n3) {
+				blockSelected = andGate;
+			}
+			else if (keys.n4) {
+				blockSelected = orGate;
+			}
+			else if (keys.n5) {
+				blockSelected = xorGate;
+			}
 			
 			
 			
@@ -2010,7 +2121,7 @@ private:
 			}
 			
 			glm::vec3 test = cameraMin;
-			blocks.correctCameraWithBlocks(&cameraMin, &cameraMax, &cameraVel);
+			//blocks.correctCameraWithBlocks(&cameraMin, &cameraMax, &cameraVel);
 			cameraMax += cameraVel;
 			cameraMin += cameraVel;
 			cameraPosition = cameraMin + cameraOffset;
@@ -2114,19 +2225,21 @@ private:
 	//gets the image from the swap chain, executes the command buffer, with the swapchain image in the framebuffer, returns the image to the swap chain for presentation
 	void drawFrame() {
 		//if (verticesChanged) {
+		if (keys.n6) {
 			vertices.clear();
 			indices.clear();
 			drawBlocks();
+		}
 			//getting image from swap chain
-			drawRect(-20, -2.5, 40, 5, 0, 1, 0);
-			drawRect(-2.5, -20, 5, 40, 0, 1, 0);
+			//drawRect(-20, -2.5, 40, 5, 0, 1, 0);
+			//drawRect(-2.5, -20, 5, 40, 0, 1, 0);
 			for (int i = 0; i < 500; i++) {
-				addVectors(&vertices, &indices, &verticesInverterModel, &indicesInverterModel);
+				//addVectors(&vertices, &indices, &verticesInverterModel, &indicesInverterModel);
 			}
 
 
-			createVertexBuffer();
-			createIndexBuffer();
+			createVertexBuffer(vertices, vertexBuffer, vertexBufferMemory);
+			createIndexBuffer(indices, indexBuffer, indexBufferMemory);
 			createCommandBuffers();
 			verticesChanged = false;
 		//}
@@ -2578,7 +2691,7 @@ private:
 };
 
 int main() {
-	HelloTriangleApplication app;
+	WorkSpace app;
 	try {
 		app.run();
 	}

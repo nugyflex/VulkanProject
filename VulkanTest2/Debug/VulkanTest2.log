@@ -2,58 +2,54 @@
 c:\program files (x86)\windows kits\8.1\include\shared\minwindef.h(130): warning C4005: 'APIENTRY': macro redefinition
   c:\users\jack\documents\github\sdlgame\vulkantest2\libraries\glfw-3.2.1.bin.win32\include\glfw\glfw3.h(98): note: see previous definition of 'APIENTRY'
 c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(364): warning C4305: 'initializing': truncation from 'double' to 'float'
-c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(429): warning C4018: '<': signed/unsigned mismatch
-c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(437): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(475): warning C4018: '<': signed/unsigned mismatch
-c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(483): warning C4018: '<': signed/unsigned mismatch
-c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(499): warning C4018: '<': signed/unsigned mismatch
-c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(504): warning C4018: '<': signed/unsigned mismatch
-c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(1846): warning C4305: 'initializing': truncation from 'double' to 'float'
-c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(669): warning C4018: '<': signed/unsigned mismatch
-c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(680): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(685): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(690): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(695): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(700): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(705): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(755): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(759): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(763): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(767): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(771): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(775): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(795): warning C4018: '<': signed/unsigned mismatch
-c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(798): warning C4018: '<': signed/unsigned mismatch
-c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(804): warning C4018: '<': signed/unsigned mismatch
-c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(819): warning C4305: 'initializing': truncation from 'double' to 'float'
-c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(827): warning C4018: '<': signed/unsigned mismatch
-c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(832): warning C4018: '<': signed/unsigned mismatch
-c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(835): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(837): warning C4018: '<': signed/unsigned mismatch
-c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(842): warning C4018: '<': signed/unsigned mismatch
-c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(845): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(847): warning C4018: '<': signed/unsigned mismatch
-c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(1710): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(1718): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(1795): warning C4018: '<': signed/unsigned mismatch
-c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(1826): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(1829): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(1832): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(1835): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(1838): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(1841): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(1881): warning C4305: '-=': truncation from 'double' to 'float'
-c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(1887): warning C4305: '=': truncation from 'double' to 'float'
-c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(1890): warning C4305: '=': truncation from 'double' to 'float'
-c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(1907): warning C4305: '*=': truncation from 'double' to 'float'
-c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(1908): warning C4305: '*=': truncation from 'double' to 'float'
-c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(1954): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(1965): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
-c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(1966): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
-c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(1968): warning C4305: '=': truncation from 'double' to 'float'
-c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(1971): warning C4305: '=': truncation from 'double' to 'float'
-c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(1978): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(1989): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-LINK : warning LNK4098: defaultlib 'MSVCRT' conflicts with use of other libs; use /NODEFAULTLIB:library
+c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(435): warning C4018: '<': signed/unsigned mismatch
+c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(444): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(482): warning C4018: '<': signed/unsigned mismatch
+c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(490): warning C4018: '<': signed/unsigned mismatch
+c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(506): warning C4018: '<': signed/unsigned mismatch
+c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(511): warning C4018: '<': signed/unsigned mismatch
+c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(2003): warning C4305: 'initializing': truncation from 'double' to 'float'
+c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(691): warning C4018: '<': signed/unsigned mismatch
+c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(704): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(709): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(714): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(719): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(724): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(729): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(913): warning C4018: '<': signed/unsigned mismatch
+c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(916): warning C4018: '<': signed/unsigned mismatch
+c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(925): warning C4018: '<': signed/unsigned mismatch
+c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(953): warning C4018: '<': signed/unsigned mismatch
+c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(968): warning C4305: 'initializing': truncation from 'double' to 'float'
+c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(970): warning C4018: '<': signed/unsigned mismatch
+c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(978): warning C4018: '<': signed/unsigned mismatch
+c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(982): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(983): warning C4018: '<': signed/unsigned mismatch
+c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(988): warning C4018: '<': signed/unsigned mismatch
+c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(993): warning C4018: '<': signed/unsigned mismatch
+c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(997): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(998): warning C4018: '<': signed/unsigned mismatch
+c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(1002): warning C4018: '<': signed/unsigned mismatch
+c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(1867): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(1875): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(1952): warning C4018: '<': signed/unsigned mismatch
+c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(1983): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(1986): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(1989): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(1992): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(1995): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(1998): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(2047): warning C4305: '-=': truncation from 'double' to 'float'
+c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(2053): warning C4305: '=': truncation from 'double' to 'float'
+c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(2056): warning C4305: '=': truncation from 'double' to 'float'
+c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(2073): warning C4305: '*=': truncation from 'double' to 'float'
+c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(2074): warning C4305: '*=': truncation from 'double' to 'float'
+c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(2120): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(2131): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(2132): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(2134): warning C4305: '=': truncation from 'double' to 'float'
+c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(2137): warning C4305: '=': truncation from 'double' to 'float'
+c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(2144): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+c:\users\jack\documents\github\vulkantest2\vulkantest2\main.cpp(2155): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
   VulkanTest2.vcxproj -> C:\Users\jack\Documents\GitHub\VulkanTest2\Debug\VulkanTest2.exe
   VulkanTest2.vcxproj -> C:\Users\jack\Documents\GitHub\VulkanTest2\Debug\VulkanTest2.pdb (Partial PDB)

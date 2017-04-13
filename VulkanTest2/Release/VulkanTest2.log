@@ -2,65 +2,59 @@
 C:\Program Files (x86)\Windows Kits\8.1\Include\shared\minwindef.h(130): warning C4005: 'APIENTRY': macro redefinition
   C:\Users\jack\Documents\GitHub\SDLgame\VulkanTest2\Libraries\glfw-3.2.1.bin.WIN32\include\GLFW/glfw3.h(98): note: see previous definition of 'APIENTRY'
 main.cpp(364): warning C4305: 'initializing': truncation from 'double' to 'float'
-main.cpp(429): warning C4018: '<': signed/unsigned mismatch
-main.cpp(437): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
-main.cpp(475): warning C4018: '<': signed/unsigned mismatch
-main.cpp(483): warning C4018: '<': signed/unsigned mismatch
-main.cpp(499): warning C4018: '<': signed/unsigned mismatch
-main.cpp(504): warning C4018: '<': signed/unsigned mismatch
-main.cpp(1901): warning C4305: 'initializing': truncation from 'double' to 'float'
-main.cpp(664): warning C4018: '<': signed/unsigned mismatch
-main.cpp(675): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-main.cpp(680): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-main.cpp(685): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-main.cpp(690): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+main.cpp(435): warning C4018: '<': signed/unsigned mismatch
+main.cpp(444): warning C4244: 'argument': conversion from 'double' to 'int', possible loss of data
+main.cpp(482): warning C4018: '<': signed/unsigned mismatch
+main.cpp(490): warning C4018: '<': signed/unsigned mismatch
+main.cpp(506): warning C4018: '<': signed/unsigned mismatch
+main.cpp(511): warning C4018: '<': signed/unsigned mismatch
+main.cpp(1994): warning C4305: 'initializing': truncation from 'double' to 'float'
+main.cpp(682): warning C4018: '<': signed/unsigned mismatch
 main.cpp(695): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
 main.cpp(700): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-main.cpp(772): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-main.cpp(776): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-main.cpp(780): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-main.cpp(784): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-main.cpp(788): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-main.cpp(792): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-main.cpp(812): warning C4018: '<': signed/unsigned mismatch
-main.cpp(815): warning C4018: '<': signed/unsigned mismatch
-main.cpp(824): warning C4018: '<': signed/unsigned mismatch
-main.cpp(852): warning C4018: '<': signed/unsigned mismatch
-main.cpp(867): warning C4305: 'initializing': truncation from 'double' to 'float'
-main.cpp(869): warning C4018: '<': signed/unsigned mismatch
-main.cpp(877): warning C4018: '<': signed/unsigned mismatch
-main.cpp(881): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-main.cpp(882): warning C4018: '<': signed/unsigned mismatch
-main.cpp(887): warning C4018: '<': signed/unsigned mismatch
-main.cpp(892): warning C4018: '<': signed/unsigned mismatch
-main.cpp(896): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
-main.cpp(897): warning C4018: '<': signed/unsigned mismatch
-main.cpp(901): warning C4018: '<': signed/unsigned mismatch
-main.cpp(1765): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-main.cpp(1773): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-main.cpp(1850): warning C4018: '<': signed/unsigned mismatch
-main.cpp(1881): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-main.cpp(1884): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-main.cpp(1887): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-main.cpp(1890): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-main.cpp(1893): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-main.cpp(1896): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-main.cpp(1936): warning C4305: '-=': truncation from 'double' to 'float'
-main.cpp(1942): warning C4305: '=': truncation from 'double' to 'float'
-main.cpp(1945): warning C4305: '=': truncation from 'double' to 'float'
-main.cpp(1962): warning C4305: '*=': truncation from 'double' to 'float'
-main.cpp(1963): warning C4305: '*=': truncation from 'double' to 'float'
-main.cpp(2009): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
-main.cpp(2020): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
-main.cpp(2021): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
-main.cpp(2023): warning C4305: '=': truncation from 'double' to 'float'
-main.cpp(2026): warning C4305: '=': truncation from 'double' to 'float'
-main.cpp(2033): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
-main.cpp(2044): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+main.cpp(705): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+main.cpp(710): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+main.cpp(715): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+main.cpp(720): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+main.cpp(904): warning C4018: '<': signed/unsigned mismatch
+main.cpp(907): warning C4018: '<': signed/unsigned mismatch
+main.cpp(916): warning C4018: '<': signed/unsigned mismatch
+main.cpp(944): warning C4018: '<': signed/unsigned mismatch
+main.cpp(959): warning C4305: 'initializing': truncation from 'double' to 'float'
+main.cpp(961): warning C4018: '<': signed/unsigned mismatch
+main.cpp(969): warning C4018: '<': signed/unsigned mismatch
+main.cpp(973): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+main.cpp(974): warning C4018: '<': signed/unsigned mismatch
+main.cpp(979): warning C4018: '<': signed/unsigned mismatch
+main.cpp(984): warning C4018: '<': signed/unsigned mismatch
+main.cpp(988): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
+main.cpp(989): warning C4018: '<': signed/unsigned mismatch
+main.cpp(993): warning C4018: '<': signed/unsigned mismatch
+main.cpp(1858): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+main.cpp(1866): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+main.cpp(1943): warning C4018: '<': signed/unsigned mismatch
+main.cpp(1974): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+main.cpp(1977): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+main.cpp(1980): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+main.cpp(1983): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+main.cpp(1986): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+main.cpp(1989): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+main.cpp(2038): warning C4305: '-=': truncation from 'double' to 'float'
+main.cpp(2044): warning C4305: '=': truncation from 'double' to 'float'
+main.cpp(2047): warning C4305: '=': truncation from 'double' to 'float'
+main.cpp(2064): warning C4305: '*=': truncation from 'double' to 'float'
+main.cpp(2065): warning C4305: '*=': truncation from 'double' to 'float'
+main.cpp(2111): warning C4244: 'argument': conversion from 'float' to 'int', possible loss of data
+main.cpp(2122): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+main.cpp(2123): warning C4244: '+=': conversion from 'double' to 'float', possible loss of data
+main.cpp(2125): warning C4305: '=': truncation from 'double' to 'float'
+main.cpp(2128): warning C4305: '=': truncation from 'double' to 'float'
+main.cpp(2135): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+main.cpp(2146): warning C4244: '=': conversion from 'double' to 'float', possible loss of data
   Generating code
-  0 of 4480 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
+  6 of 4543 functions ( 0.1%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    8 functions had inline decision re-evaluated but remain unchanged
+    32 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   VulkanTest2.vcxproj -> C:\Users\jack\Documents\GitHub\VulkanTest2\Release\VulkanTest2.exe
   VulkanTest2.vcxproj -> C:\Users\jack\Documents\GitHub\VulkanTest2\Release\VulkanTest2.pdb (Full PDB)

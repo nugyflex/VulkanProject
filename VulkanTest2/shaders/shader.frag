@@ -17,4 +17,6 @@ void main() {
 		outColor = texture(texSampler, fragTexCoord);
 	}
 	//outColor = vec4(fragColor.x, fragColor.y, fragColor.z, 1);
+
 }
+
